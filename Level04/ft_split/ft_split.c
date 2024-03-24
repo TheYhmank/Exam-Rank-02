@@ -69,17 +69,3 @@ char    **ft_split(char *str)
     strings[i] = '\0';
     return (strings);
 }
-
-#include <stdio.h>
-
-int main(void)
-{
-	char **strs;
-	char str[] = "Hello, World!";
-	strs = ft_split(str);
-	while (*strs)
-	{
-		printf("%s\n", *strs);
-		strs++;
-	}
-} 
