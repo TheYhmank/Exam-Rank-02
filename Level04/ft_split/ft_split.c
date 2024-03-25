@@ -69,3 +69,15 @@ char    **ft_split(char *str)
     strings[i] = '\0';
     return (strings);
 }
+
+/*
+int main(void)
+{
+    char **result;
+    char src[] = "Helfsdf jsdfkl";
+
+    while (*result)
+        printf("%s\n", *result++);
+    return (0);    
+}
+*/
