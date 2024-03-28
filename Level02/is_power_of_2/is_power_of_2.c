@@ -1,16 +1,15 @@
-int	    is_power_of_2(unsigned int n)
+int         is_power_of_2(unsigned int n)
 {
-	int num = 2;
-	int power = 0;
+	int power = 2;
+	int i = 0;
 
 	if (n == 1)
 		return (1);
-	while (n >= power)
+	while (n > i)
 	{
-		if (num * power == n)
-			return (1);		
-		power++;
+		if (power * i == n)
+			return (1);
+		i++;
 	}
 	return (0);
 }
-
