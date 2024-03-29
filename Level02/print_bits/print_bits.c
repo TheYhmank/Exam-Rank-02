@@ -1,13 +1,20 @@
 #include <unistd.h>
+#include <stdlib.h>
 
-void print_bit(unsigned char octet)
+void    print_bits(unsigned char octet)
 {
-	int i = 8;
-	unsigned char bit;
+	int base = 8;
+	unsigned char bin;
 
-	while (i--)
+	while (--base >= 0)
 	{
-		bit = (octet >> i & 1) + '0';
-		write(1, &bit, 1);
+		bin = (octet >> base & 1) + '0';
+		write(1, &bin, 1);
 	}
+}
+
+int main(int argc, char const *argv[])
+{
+print_bits(atoi(argv[1]));
+	return 0;
 }

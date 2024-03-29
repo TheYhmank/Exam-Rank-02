@@ -1,68 +1,64 @@
 #include <unistd.h>
 
-void ft_putnbr(int num)
-{
-	char arr[] = "0123456789";
-
-	if (num >= 10)
-		ft_putnbr(num / 10);
-	write(1, &arr[num % 10], 1);	
-}
-
 int ft_atoi(char *str)
 {
 	int res = 0;
-	int sign = 1;
-
-	while (*str == '-')
-	{
-		sign *= -1;
-		++str;
-	}
+	if (*str == '-')
+		return (-1);
 	while (*str >= '0' && *str <= '9')
 	{
 		res = res * 10 + (*str - '0');
-		str++;
+		++str;
 	}
-	return (res * sign);
+	return (res);
 }
 
-int is_prime(int num) 
+int is_prime(int num)
 {
-    if (num <= 1)
-        return 0; 
-    int i = 2;
-    while (i * i <= num) 
+	int i = 2;
+
+	if (num == 1 || num == 0)
+		return (1);
+	while (i * i <= num)
 	{
-        if (num % i == 0)
-            return 0; 
-        i++;
-    }
-    return 1; 
+		if (num % 2 == 0)
+		{
+			return (1);
+		}
+		i++;
+	}
+	return (0);
 }
 
-int add_prime_sum(int num) 
+int add_prime(int limit)
 {
-    int res = 0;
-    int i = 2;
-    while (i <= num) {
-        if (is_prime(i))
-            res += i;
-        i++;
-    }
-    return res;
+	int primes = 0;
+	while (limit >= 0)
+	{
+		if (is_prime(limit) == 0)
+			primes += limit;
+		limit--;
+	}
+	return (primes);
+}
+
+void ft_putnbr(int num)
+{
+	char arr[] = "0123456789";
+	if (num > 9)
+	{
+		ft_putnbr(num / 10);
+	}
+	write(1, &arr[num % 10], 1);
 }
 
 int main(int argc, char *argv[])
 {
-	int num;
-	if (argc == 2)
-	{
-		num = ft_atoi(argv[1]);
-		if (num > 0)
-			ft_putnbr(add_prime_sum(num));
-	}
-	//write(1, "0", 1);
+	int num = ft_atoi(argv[1]);
+	if (argc == 2 && num > 0)
+		ft_putnbr(add_prime(num));
+	else
+		write(1, "0", 1);
 	write(1, "\n", 1);
 	return 0;
 }
