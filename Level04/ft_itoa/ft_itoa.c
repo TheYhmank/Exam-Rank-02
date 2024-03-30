@@ -1,34 +1,39 @@
+#include <stdio.h>
 #include <stdlib.h>
 
-int ft_length(int num)
+int ft_digits(int num)
 {
-    int count = 0;
+    int counter = 0;
 
     if (num == 0)
+    {
         return (1);
+    }
     if (num < 0)
     {
-        count++;
+        counter++;
         num *= -1;
     }
     while (num)
     {
         num /= 10;
-        count++;
+        counter++;
     }
-    return (count);
+    return (counter);
 }
 
 char	*ft_itoa(int nbr)
 {
-    char* res;
-    int digit_length = ft_length(nbr);
-    int number = 0;
+    int length = ft_digits(nbr);
+    char *res;
+    int i = 0;
 
-    res = (char *)molloc(sizeof(char) * (digit_length + 1));
+    res = (char *)malloc(sizeof(char) * (length + 1));
     if (!(res))
+    {
         return (NULL);
-    res[digit_length] = '\0';
+    }
+    res[length] = '\0';
     if (nbr < 0)
     {
         res[0] = '-';
@@ -36,9 +41,9 @@ char	*ft_itoa(int nbr)
     }
     while (nbr)
     {
-        res[digit_length - 1] = nbr % 10 + '0';
+        res[length - 1] = nbr % 10 + '0';
         nbr /= 10;
-        digit_length--;
+        length--;
     }
     return (res);
 }

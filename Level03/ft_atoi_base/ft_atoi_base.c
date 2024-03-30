@@ -2,24 +2,31 @@
 
 char to_lower(char c)
 {
-	if (c >= 'A' && c <= 'Z')
+	if (c >= 'A' && c <= 'F')
+	{
 		c += 32;
+	}
 	return (c);
 }
 
-int get_digit(char c, int str_base)
+int ft_digit(char c, int base)
 {
-	int base_max ;
-
-	if (str_base <= 10)
-		base_max = str_base + '0';
+	int max_base = 0;
+	if (base <= 10)
+	{
+		max_base = base + '0';
+	}
 	else
-		base_max = str_base - 10 + 'a';
-
-	if (c >= 'a' && c <= 'f' && c <= base_max)
-		return (c + 10 - 'a');
-	else if (c >= '0' && c <= '9' && c <= base_max)
+		max_base = base - 10 + 'a';
+	
+	if (c >= '0' && c <= '9' && c <= max_base)
+	{
 		return (c - '0');
+	}
+	else if (c >= 'a' && c <= 'f' && c <= max_base)
+	{
+		return (c + 10 - 'a');
+	}
 	else
 		return (-1);
 }
@@ -35,7 +42,7 @@ int	ft_atoi_base(const char *str, int str_base)
 		sign *= -1;
 		++str;
 	}
-	while ((digit = get_digit(to_lower(*str), str_base)) >= 0)
+	while ((digit = ft_digit(to_lower(*str), str_base)) >= 0)
 	{
 		res = res * str_base;
 		res = res + (digit * sign);
@@ -44,9 +51,7 @@ int	ft_atoi_base(const char *str, int str_base)
 	return (res);
 }
 
-int main(int argc, char const *argv[])
+int main(void)
 {
-	(void)argc;
-	printf("%d", ft_atoi_base(argv[1], 16));
-	return 0;
+	printf("%d", ft_atoi_base("7F", 16));
 }

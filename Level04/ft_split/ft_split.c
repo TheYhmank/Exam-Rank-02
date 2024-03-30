@@ -1,83 +1,85 @@
 #include <stdlib.h>
 
-int word_count(char *str)
+int	count_strings(char const *str)
 {
-    int count = 0;
+	int	i;
+	int	count;
 
-    while (*str)
-    {
-        while (*str && (*str == ' ' || *str == '\t' || *str == '\n'))
-            ++str;
-        if (*str)
-            count++;
-        while (*str && !(*str == ' ' || *str == '\t' || *str == '\n'))
-            ++str;        
-    }
-    return (count);
+	count = 0;
+	i = 0;
+	while (str[i])
+	{
+		while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+			i++;
+		if (str[i])
+			count++;
+		while (str[i] && !(str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+			i++;
+	}
+	return (count);
 }
 
-int ft_length(char *str)
+int	ft_strlen_sep(char *str)
 {
-    int i = 0;
+	int	i;
 
-    while (*str && !(*str == ' ' || *str == '\t' || *str == '\n'))
-    {
-        i++;
-        str++;
-    }
-    return (i);
+	i = 0;
+	while (str[i] && !(str[i] == ' ' || str[i] == '\t' || str[i] == '\n'))
+		i++;
+	return (i);
 }
 
-char *word_allocate(char *str)
+char	*ft_word(char *str)
 {
-    char *buffer;
-    int i = 0;
-    int word_length = ft_length(str);
+	int		len_word;
+	int		i;
+	char	*word;
 
-    buffer = (char *)malloc(sizeof(char) * word_length + 1);
-    if (!buffer)
-    {
-        return (NULL);
-    }
-    i = -1;
-    while (++i < word_length)
-    {
-        buffer[i] = str[i];
-    }
-    buffer[i] = '\0';
-    return (buffer);
+
+	len_word = ft_strlen_sep(str);
+	word = (char *)malloc(sizeof(char) * (len_word + 1));
+	if (!word)
+		return (NULL);
+	i = -1;
+	while (++i < len_word)
+		word[i] = str[i];
+	word[i] = '\0';
+	return (word);
 }
 
-char    **ft_split(char *str)
+char	**ft_split(char *str)
 {
-    char **strings;
-    int i;
+	char	**strings;
+	int		i;
 
-    strings = (char **)malloc(sizeof(char *) * (word_count(str) + 1));
-    if (!(strings))
-        return (NULL);
-    i = 0;
-    while (*str)
-    {
-        while (*str && (*str == ' ' || *str == '\t' || *str == '\n'))
-            ++str;
-        if (*str)
-            strings[i++] = word_allocate(str);
-        while (*str && !(*str == ' ' || *str == '\t' || *str == '\n'))
-            ++str; 
-    }
-    strings[i] = '\0';
-    return (strings);
+	strings = (char **)malloc(sizeof(char *) * (count_strings(str) + 1));
+	if (strings == NULL)
+		return (NULL);
+	i = 0;
+    strings[count_strings(str) + 1] = '\0';
+	while (*str)
+	{
+		while (*str && (*str == ' ' || *str == '\t' || *str == '\n'))
+			str++;
+		if (*str)
+			strings[i++] = ft_word(str);
+		while (*str && !(*str == ' ' || *str == '\t' || *str == '\n'))
+			str++;
+	}
+	//strings[count_strings(str) + 1] = '\0';
+	return (strings);
 }
 
-/*
+#include <stdio.h>
+
 int main(void)
 {
-    char **result;
-    char src[] = "Helfsdf jsdfkl";
-
-    while (*result)
-        printf("%s\n", *result++);
-    return (0);    
+	char **strs;
+	char str[] = "     hishihhf  \n  j8kj 7uhg fd  \t   r";
+	strs = ft_split(str);
+	while (*strs)
+	{
+		printf("%s\n", *strs);
+		strs++;
+	}
 }
-*/
